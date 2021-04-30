@@ -1,0 +1,36 @@
+/*
+!/*.gitignore
+
+# Quartus Prime Source Files
+
+## Project files:
+!*.qpf
+!*.qsf
+# !*.qws
+
+## Source files:
+!*.bdf
+!*.v
+# !*.vhd
+
+## SOPC builder source files:
+!*.ptf
+!*.bsf
+
+## Board description:
+!**/class.ptf
+
+## Software source files:
+!*.c
+!*.s
+
+# Quartus Prime Binary Files
+
+## Memory initialization files:
+!memory/*.mif
+
+## Hardware binary files
+!*.sof
+
+## Software binary files
+!*.py
