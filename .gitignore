@@ -11,7 +11,11 @@
 ## Source files:
 !*.bdf
 !*.v
-# !*.vhd
+
+## Source Directories:
+!components/
+!memory/
+!io_control/
 
 ## SOPC builder source files:
 !*.ptf
@@ -25,9 +29,6 @@
 !*.s
 
 # Quartus Prime Binary Files
-
-## Memory initialization files:
-!memory/*.mif
 
 ## Hardware binary files
 !*.sof
