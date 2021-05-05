@@ -11,4 +11,4 @@ module multiplier (in, out, reset);
          out <= ~out;
    end
 
-endmodule 
+endmodule

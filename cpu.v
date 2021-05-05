@@ -34,7 +34,7 @@ module cpu (clock, reset, inst, mem_out, pc, alu_out, reg_data2, mem_write, over
    // Register Files
    wire [31:0] reg_data1, write_data;
    wire [4:0] write_reg = reg_dst ? rd : (jal ? 5'h1f : rt);
-   registers regs (clock, reset, rs, rt, write_reg, 
+   registers regs (clock, reset, rs, rt, write_reg,
                    write_data, reg_write, reg_data1, reg_data2);
 
    // Immediate Extension

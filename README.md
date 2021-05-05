@@ -2,10 +2,13 @@
 
 This repository contains the lab projects for ICE2603 (2021 Spring). This project aims to implement a pipelined MIPS CPU on an FPGA board.
 
+Note: the sequential CPU is available at branch `seq`.
+
 ## Environment Setup
 
 * This repository was developed with Quartus Prime 20.1.1.
 * The circuits implemented were simulated with ModelSim, and tested on Intel (Altera) DE1-SoC Board.
+* The compiled program file `computer.sof` can be loaded and executed directly on the board.
 
 ## Specifications
 
@@ -43,6 +46,27 @@ The instructions implemented are listed below.
 | Branch on Not Equal | `bne $rs, $rt, label` | `5` |
 | Jump | `j label` | `2` |
 | Jump and Link | `jal label` | `3` |
+
+### I/O Ports
+
+The I/O ports and their "addresses" are listed below.
+
+| I/O | Position | Address |
+| -- | -- | -- |
+| Clock | `CLOCK_50` |  |
+| Reset | `KEY0` |  |
+| Overflow | `LEDR0` |  |
+| Input 1 | `SW{9-5}` | `0xa0` |
+| Input 2 | `SW{4-0}` | `0xa4` |
+| Output 1 | `HEX{5-4}` | `0xb0` |
+| Output 2 | `HEX{3-2}` | `0xb4` |
+| Output 3 | `HEX{1-0}` | `0xb8` |
+
+### Example Program
+
+The example program for this project is adapted from *Computer Systems: A Programmer's Perspective: Architecture Lab*. The assembly program is rewritten using MIPS instructions.
+
+The C source is in `ncopy.c`. The corresponsing MIPS source is in `ncopy.s`.
 
 ## License
 
