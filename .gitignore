@@ -16,6 +16,7 @@
 !components/
 !memory/
 !io_control/
+!pipe_regs/
 
 ## SOPC builder source files:
 !*.ptf
