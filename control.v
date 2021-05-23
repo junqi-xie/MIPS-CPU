@@ -1,11 +1,12 @@
 module control (op, funct, zero, sign, sign_ext, shift,
                 alu_src, mem_write, reg_src, reg_dst, reg_write,
-                branch, jump, jal, jr);
+                reg_fwd, pc_update, branch, jump, jal, jr);
 
    input [5:0] op, funct;
    input zero;
    output sign, sign_ext, shift, alu_src, mem_write, reg_src,
-          reg_dst, reg_write, branch, jump, jal, jr;
+          reg_dst, reg_write, reg_fwd, pc_update,
+          branch, jump, jal, jr;
 
    // Parse the instructions
 
@@ -39,6 +40,9 @@ module control (op, funct, zero, sign, sign_ext, shift,
    assign reg_src   = i_lw;
    assign reg_dst   = r_type;
    assign reg_write = r_type || i_type || i_lw   || i_jal;
+
+   assign reg_fwd   = i_beq  || i_bne  || i_jr;
+   assign pc_update = branch || jump   || jr;
 
    assign branch    = (i_beq && zero)  || (i_bne && !zero);
    assign jump      = i_j    || i_jal;
