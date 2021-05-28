@@ -1,0 +1,13 @@
+DEPTH = 64;
+WIDTH = 32;
+CONTENT
+BEGIN
+ 8 : 0000000a; % (20) src[0] %
+ 9 : ffffffff; % (24) src[1] %
+ a : 000000b0; % (28) src[2] %
+ b : fffffffe; % (2c) src[3] %
+ c : 00000c00; % (30) src[4] %
+ d : fffffffd; % (34) src[5] %
+ e : 0000d000; % (38) src[6] %
+ f : 00000000; % (38) src[7] %
+END ;

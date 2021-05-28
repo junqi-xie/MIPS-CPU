@@ -1,0 +1,38 @@
+DEPTH = 64;
+WIDTH = 32;
+CONTENT
+BEGIN
+ 0 : 3c010000; % (00) 		lui $at, 0 %
+ 1 : 343d007c; % (04) 		ori $sp, $at, 0x7c	# stack pointer %
+ 2 : 3c010000; % (08) main:	lui $at, 0 %
+ 3 : 343c00a0; % (0c) 		ori $gp, $at, 0xa0	# I/O port addresses %
+ 4 : 8f840000; % (10) 		lw $a0, 0($gp) %
+ 5 : 00042080; % (14) 		sll $a0, $a0, 2		# src = input1 * 4 %
+ 6 : 8f860004; % (18) 		lw $a2, 4($gp)		# len = input2 %
+ 7 : 00064080; % (1c) 		sll $t0, $a2, 2 %
+ 8 : 00882820; % (20) 		add $a1, $a0, $t0	# dst = input1 + len * 4 %
+ 9 : af840010; % (24) 		sw $a0, 16($gp)		# output1 = src %
+ a : af850014; % (28) 		sw $a1, 20($gp)		# output2 = dst %
+ b : 0c00000e; % (2c) 		jal ncopy			# ncopy(src, dst, len) %
+ c : af820018; % (30) 		sw $v0, 24($gp)		# output3 = count %
+ d : 08000002; % (34) finish:	j main %
+ e : 23bdfffc; % (38) ncopy:	addi $sp, $sp, -4	# allocate space for $s0 %
+ f : afb00004; % (3c) 		sw $s0, 4($sp)		# save $s0 %
+10 : 00421026; % (40) 		xor $v0, $v0, $v0	# count = 0; %
+11 : 00c64024; % (44) 		and $t0, $a2, $a2	# len <= 0? %
+12 : 1100000a; % (48) 		beq $t0, $0, Done	# if so, goto Done: %
+13 : 8c900000; % (4c) Loop:	lw $s0, 0($a0)		# read val from src... %
+14 : acb00000; % (50) 		sw $s0, 0($a1)		# ...and store it to dst %
+15 : 2a080001; % (54) 		slti $t0, $s0, 1	# val <= 0? %
+16 : 15000001; % (58) 		bne $t0, $0, Npos	# if so, goto Npos: %
+17 : 20420001; % (5c) 		addi $v0, $v0, 1	# count++ %
+18 : 20c6ffff; % (60) Npos:	addi $a2, $a2, -1	# len-- %
+19 : 20840004; % (64) 		addi $a0, $a0, 4	# src++ %
+1a : 20a50004; % (68) 		addi $a1, $a1, 4	# dst++ %
+1b : 00c64024; % (6c) 		and $t0, $a2, $a2	# len > 0? %
+1c : 1500fff6; % (70) 		bne $t0, $0, Loop	# if so, goto Loop: %
+1d : 8fb00004; % (74) Done:	lw $s0, 4($sp)		# restore $s0 %
+1e : 23bd0004; % (78) 		addi $sp, $sp, 4	# free space for $s0 %
+1f : 03e00008; % (7c) 		jr $ra %
+20 : 08000020; % (80) Handle:	j Handle			# Overflow handler %
+END ;
