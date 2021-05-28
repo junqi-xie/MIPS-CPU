@@ -2,7 +2,7 @@
 //                                                         //
 // EI332 Computer Organization                             //
 //                                                         //
-// A Sequential MIPS Computer Implementation               //
+// A Pipelined MIPS Computer Implementation                //
 //                                                         //
 /////////////////////////////////////////////////////////////
 
